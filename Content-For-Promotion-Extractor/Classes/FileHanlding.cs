@@ -85,6 +85,12 @@ namespace Content_For_Promotion_Extractor
                 return ids;
             }
         }
+
+        internal List<string> IdentifyDependencies(List<string> extractTargets, string file)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 
 }
