@@ -11,7 +11,7 @@ namespace Content_For_Promotion_Extractor
     class RF2Reader
     {
         //Reads all of a Concepts file into List
-        public List<Concept> ReadConceptFile(string fileName)
+        public List<Concept> ReadConceptFile(string fileName, bool onlyactivecomponents = true)
         {
             using (StreamReader file = File.OpenText(fileName))
             {
@@ -23,15 +23,27 @@ namespace Content_For_Promotion_Extractor
                     line = file.ReadLine(); // skip header
                     var fields = line.Split('\t');
 
-                    Concept c = new Concept(fields);
-                    concepts.Add(c);
+                    if (fields[3] != "900000000000207008" && fields[3] != "900000000000012004")
+                    {
+                        if (onlyactivecomponents && fields[2] == "1")
+                        {
+                            Concept c = new Concept(fields);
+                            concepts.Add(c);
+                        }
+                        else
+                        {
+                            Concept c = new Concept(fields);
+                            concepts.Add(c);
+                        }
+                    }
+
                 }
                 return concepts;
             }
         }
 
         //Reads all of a Descriptions file into List
-        public List<Description> ReadDescriptionFile(string fileName)
+        public List<Description> ReadDescriptionFile(string fileName, bool onlyactivecomponents = true)
         {
             using (StreamReader file = File.OpenText(fileName))
             {
@@ -43,15 +55,27 @@ namespace Content_For_Promotion_Extractor
                     line = file.ReadLine(); // skip header
                     var fields = line.Split('\t');
 
-                    Description d = new Description(fields);
-                    descriptions.Add(d);
+                    if (fields[3] != "900000000000207008" && fields[3] != "900000000000012004")
+                    {
+                        if (onlyactivecomponents && fields[2] == "1")
+                        {
+                            Description d = new Description(fields);
+                            descriptions.Add(d);
+                        }
+                        else
+                        {
+                            Description d = new Description(fields);
+                            descriptions.Add(d);
+                        }
+                    }
+
                 }
                 return descriptions;
             }
         }
 
         //Reads all of a Relationships file into List
-        public List<Relationship> ReadRelationshipFile(string fileName)
+        public List<Relationship> ReadRelationshipFile(string fileName, bool onlyactivecomponents = true)
         {
             using (StreamReader file = File.OpenText(fileName))
             {
@@ -63,8 +87,20 @@ namespace Content_For_Promotion_Extractor
                     line = file.ReadLine(); // skip header
                     var fields = line.Split('\t');
 
-                    Relationship r = new Relationship(fields);
-                    relationships.Add(r);
+                    if (fields[3] != "900000000000207008" && fields[3] != "900000000000012004")
+                    {                    
+                        if (onlyactivecomponents && fields[2] == "1")
+                        {
+                            Relationship r = new Relationship(fields);
+                            relationships.Add(r);
+                        }
+                        else
+                        {
+                            Relationship r = new Relationship(fields);
+                            relationships.Add(r);
+                        }
+                    }
+
                 }
                 return relationships;
             }
