@@ -34,6 +34,8 @@ namespace Content_For_Promotion_Extractor
             //Check relationship file for any dependencies (stated+full?)
             //ExtractTargets = r.IdentifyDependencies(ExtractTargets, file);
 
+
+
             //Identify all the descriptions and relationships for the Target Concepts.
    
             //Implement an RF2 writer also.

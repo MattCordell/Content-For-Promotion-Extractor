@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Content-For-Promotion-Extractor", "Content-For-Promotion-Extractor.csproj", "{C87D31B7-08FB-4A63-B59D-C602AAF98365}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Content-For-Promotion-ExtractorTests", "..\Content-For-Promotion-ExtractorTests\Content-For-Promotion-ExtractorTests.csproj", "{D1689E92-CD4E-4CD7-8BEB-EA6775035A73}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{C87D31B7-08FB-4A63-B59D-C602AAF98365}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C87D31B7-08FB-4A63-B59D-C602AAF98365}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C87D31B7-08FB-4A63-B59D-C602AAF98365}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1689E92-CD4E-4CD7-8BEB-EA6775035A73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1689E92-CD4E-4CD7-8BEB-EA6775035A73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1689E92-CD4E-4CD7-8BEB-EA6775035A73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1689E92-CD4E-4CD7-8BEB-EA6775035A73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

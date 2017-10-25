@@ -1,0 +1,4 @@
+ConceptId	FSN
+151234567100	Patent pigment (semantic tag)
+171234567100	Cling yak never prepare (semantic tag)
+221234567100	Diet sailor odd seashore (semantic tag)

@@ -9,7 +9,7 @@ namespace Content_For_Promotion_Extractor
 
     // public strings used for initial simplicity
 
-    class Concept
+    public class Concept
     {
         public string id { get; set; }
         public string effectiveTime { get; set; }
@@ -19,7 +19,7 @@ namespace Content_For_Promotion_Extractor
 
         public Concept(string[] s)
         {
-            if (s.Length != 5) throw new Exception("Not enough fields to initials concept class");
+            if (s.Length != 5) throw new Exception("Not enough fields to initialise concept class");
             
         id = s[0];
         effectiveTime = s[1];
@@ -29,7 +29,7 @@ namespace Content_For_Promotion_Extractor
         }
     }
 
-    class Description
+    public class Description
     {
         public string id;
         public string effectiveTime;
@@ -57,7 +57,7 @@ namespace Content_For_Promotion_Extractor
         }
     }
 
-    class Relationship
+    public class Relationship
     {
         public string id;
         public string effectiveTime;

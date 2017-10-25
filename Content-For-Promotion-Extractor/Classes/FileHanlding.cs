@@ -8,7 +8,7 @@ using CsvHelper;
 
 namespace Content_For_Promotion_Extractor
 {
-    class RF2Reader
+    public class RF2Reader
     {
         //Reads all of a Concepts file into List
         public List<Concept> ReadConceptFile(string fileName, bool onlyactivecomponents = true)

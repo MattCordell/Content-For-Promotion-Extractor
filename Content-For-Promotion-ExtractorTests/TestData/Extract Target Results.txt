@@ -1,0 +1,15 @@
+-- test data available both extracted and zipped
+-- all changes to extracted, then rezip
+
+-- Extract List
+151234567100
+171234567100
+221234567100
+
+-- dependent typeId (to be identified + added)
+241234567100
+
+-- dependent destinationId (to be identified + added)
+251234567100
+
+
