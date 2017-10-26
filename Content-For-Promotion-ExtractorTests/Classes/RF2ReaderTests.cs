@@ -47,9 +47,9 @@ namespace Content_For_Promotion_Extractor.Tests
             string testFile = path + descriptionFile;
 
             RF2Reader r = new RF2Reader();
-            var concepts = r.ReadDescriptionFile(testFile);
+            var descriptions = r.ReadDescriptionFile(testFile);
 
-            Assert.AreEqual(6, concepts.Count());
+            Assert.AreEqual(22, descriptions.Count());
         }
 
         [TestMethod()]
@@ -58,9 +58,9 @@ namespace Content_For_Promotion_Extractor.Tests
             string testFile = path + descriptionFile;
 
             RF2Reader r = new RF2Reader();
-            var concepts = r.ReadDescriptionFile(testFile);
+            var descriptions = r.ReadDescriptionFile(testFile);
 
-            Assert.AreEqual(6, concepts.Count());
+            Assert.AreEqual(18, descriptions.Count());
         }
 
         [TestMethod()]
@@ -69,9 +69,9 @@ namespace Content_For_Promotion_Extractor.Tests
             string testFile = path + relationshipFile;
 
             RF2Reader r = new RF2Reader();
-            var concepts = r.ReadRelationshipFile(testFile);
+            var relationships = r.ReadRelationshipFile(testFile);
 
-            Assert.AreEqual(6, concepts.Count());
+            Assert.AreEqual(22, relationships.Count());
         }
 
         [TestMethod()]
@@ -80,9 +80,9 @@ namespace Content_For_Promotion_Extractor.Tests
             string testFile = path + relationshipFile;
 
             RF2Reader r = new RF2Reader();
-            var concepts = r.ReadRelationshipFile(testFile);
+            var relationships = r.ReadRelationshipFile(testFile);
 
-            Assert.AreEqual(6, concepts.Count());
+            Assert.AreEqual(19, relationships.Count());
         }
 
         [TestMethod()]
