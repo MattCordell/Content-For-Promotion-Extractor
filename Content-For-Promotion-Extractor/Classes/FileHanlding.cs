@@ -61,7 +61,7 @@ namespace Content_For_Promotion_Extractor
                             Description d = new Description(fields);
                             descriptions.Add(d);
                         }
-                        else
+                        else if (!onlyactivecomponents)
                         {
                             Description d = new Description(fields);
                             descriptions.Add(d);
@@ -93,7 +93,7 @@ namespace Content_For_Promotion_Extractor
                             Relationship r = new Relationship(fields);
                             relationships.Add(r);
                         }
-                        else
+                        else if (!onlyactivecomponents)
                         {
                             Relationship r = new Relationship(fields);
                             relationships.Add(r);

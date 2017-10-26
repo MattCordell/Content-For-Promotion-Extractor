@@ -12,9 +12,11 @@ namespace Content_For_Promotion_Extractor.Tests
     public class RF2ReaderTests
     {
         string path = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\TestData\RF2Release\Snapshot\Terminology\";
+
         string conceptFile = "sct2_Concept_Snapshot_20171130.txt";
-        string descriptionFile = "sct2_Concept_Snapshot_20171130.txt";
-        string relationshipFile = "sct2_Concept_Snapshot_20171130.txt";
+        string descriptionFile = "sct2_Description_Snapshot_20171130.txt";
+        string relationshipFile = "sct2_StatedRelationship_Snapshot_20171130.txt";
+
         string targetList = "sct2_Concept_Snapshot_20171130.txt";
         string localConceptFile = "sct2_Concept_Snapshot_20171130.txt";
 
@@ -47,7 +49,7 @@ namespace Content_For_Promotion_Extractor.Tests
             string testFile = path + descriptionFile;
 
             RF2Reader r = new RF2Reader();
-            var descriptions = r.ReadDescriptionFile(testFile);
+            var descriptions = r.ReadDescriptionFile(testFile, false);
 
             Assert.AreEqual(22, descriptions.Count());
         }
@@ -69,7 +71,7 @@ namespace Content_For_Promotion_Extractor.Tests
             string testFile = path + relationshipFile;
 
             RF2Reader r = new RF2Reader();
-            var relationships = r.ReadRelationshipFile(testFile);
+            var relationships = r.ReadRelationshipFile(testFile, false);
 
             Assert.AreEqual(22, relationships.Count());
         }
