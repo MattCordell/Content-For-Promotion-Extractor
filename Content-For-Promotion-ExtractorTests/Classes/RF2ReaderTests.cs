@@ -17,8 +17,10 @@ namespace Content_For_Promotion_Extractor.Tests
         string descriptionFile = "sct2_Description_Snapshot_20171130.txt";
         string relationshipFile = "sct2_StatedRelationship_Snapshot_20171130.txt";
 
-        string targetList = "sct2_Concept_Snapshot_20171130.txt";
-        string localConceptFile = "sct2_Concept_Snapshot_20171130.txt";
+        string localPath = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\TestData\";
+
+        string targetList = "TargetConceptToBeExtracted.txt";
+        string localConceptFile = "sct2_Concept_Snapshot_20170401.txt";
 
 
         [TestMethod()]
@@ -90,12 +92,24 @@ namespace Content_For_Promotion_Extractor.Tests
         [TestMethod()]
         public void ReadListOfIdsTest()
         {
-            Assert.Fail();
+            string testFile = localPath + targetList;
+
+            RF2Reader r = new RF2Reader();
+            var ids = r.ReadListOfIds(testFile);
+
+            Assert.AreEqual(3, ids.Count());
         }
 
         [TestMethod()]
         public void IdentifyDependenciesTest()
         {
+            string localConcept = localPath + localConceptFile;
+            string xRelationship = path + relationshipFile;
+            
+
+            RF2Reader r = new RF2Reader();
+            var relationships = r.ReadRelationshipFile(testFile);
+
             Assert.Fail();
         }
     }
