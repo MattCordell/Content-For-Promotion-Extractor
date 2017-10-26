@@ -30,13 +30,12 @@ namespace Content_For_Promotion_Extractor
                             Concept c = new Concept(fields);
                             concepts.Add(c);
                         }
-                        else
+                        else if (!onlyactivecomponents)
                         {
                             Concept c = new Concept(fields);
                             concepts.Add(c);
                         }
                     }
-
                 }
                 return concepts;
             }
@@ -122,7 +121,7 @@ namespace Content_For_Promotion_Extractor
             }
         }
 
-        internal List<string> IdentifyDependencies(List<string> extractTargets, string file)
+        public List<string> IdentifyDependencies(List<string> extractTargets, string file)
         {
             throw new NotImplementedException();
         }
