@@ -129,7 +129,21 @@ namespace Content_For_Promotion_Extractor
 
         public List<string> GetTypeIdIdDependencies(List<string> extractTargets, List<Concept> localConcepts, List<Relationship> Relationships)
         {
-            throw new NotImplementedException();
+            // select all the destinationIds for target concepts
+            var query1 = (from relationship in Relationships
+                          join target in extractTargets
+                          on relationship.sourceId equals target
+                          select relationship.typeId).Distinct();
+
+            var query2 = (from c in localConcepts
+                          select c.id).Distinct();
+
+            var localAndExtract = extractTargets.Union(query2);
+
+            var dependencies = query1.Except(localAndExtract).Distinct();
+
+
+            return dependencies.ToList();
         }
 
         //Reads a list of ids from a file into List
