@@ -118,12 +118,25 @@ namespace Content_For_Promotion_Extractor
             }
         }
 
-        public List<string> IdentifyAllDependencies(List<string> extractTargets, List<Concept> localConcepts, List<Relationship> statedRelationships, List<Relationship> inferredrelationships)
+        // checks both stated and inferred for dependencies
+        public List<string> IdentifyAllDependencies(List<string> extractTargets, List<Concept> localconcepts, List<Relationship> statedRelationships, List<Relationship> inferredRelationships)
+        {
+            // check the stated relationships for dependencies
+            List<string> dependencies = IdentifyDependencies(extractTargets, localconcepts, statedRelationships);
+            var allTargets = extractTargets.Union(dependencies).ToList();
+
+            //check the inferred for any extra dependencies
+            dependencies.InsertRange(0,IdentifyDependencies(allTargets, localconcepts, inferredRelationships));           
+
+            return dependencies.Distinct().ToList();
+        }
+
+        public List<string> IdentifyDependencies(List<string> extractTargets, List<Concept> localConcepts, List<Relationship> Relationships)
         {
             List<string> dependencies = new List<string>();
 
-            var typeIdDependencies = GetTypeIdIdDependencies(extractTargets, localConcepts, statedRelationships);
-            var destinationIdDependencies = GetDestinationIdDependencies(extractTargets, localConcepts, statedRelationships);
+            var typeIdDependencies = GetTypeIdIdDependencies(extractTargets, localConcepts, Relationships);
+            var destinationIdDependencies = GetDestinationIdDependencies(extractTargets, localConcepts, Relationships);
 
             var newDependencies = typeIdDependencies.Union(destinationIdDependencies);
 
@@ -134,8 +147,8 @@ namespace Content_For_Promotion_Extractor
                 dependencies.InsertRange(0, newDependencies);
                 extractTargets.InsertRange(0, dependencies);
 
-                typeIdDependencies = GetTypeIdIdDependencies(extractTargets, localConcepts, statedRelationships);
-                destinationIdDependencies = GetDestinationIdDependencies(extractTargets, localConcepts, statedRelationships);
+                typeIdDependencies = GetTypeIdIdDependencies(extractTargets, localConcepts, Relationships);
+                destinationIdDependencies = GetDestinationIdDependencies(extractTargets, localConcepts, Relationships);
 
                 newDependencies = typeIdDependencies.Union(destinationIdDependencies);
             }

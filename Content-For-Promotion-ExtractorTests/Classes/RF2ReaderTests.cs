@@ -135,7 +135,7 @@ namespace Content_For_Promotion_Extractor.Tests
         }
 
         [TestMethod()]
-        public void IdentifyAllDependencies_Test()
+        public void IdentifyDependencies_Test()
         {
             string targets = localPath + targetList;
             string localConcept = localPath + localConceptFile;
@@ -150,7 +150,7 @@ namespace Content_For_Promotion_Extractor.Tests
             List<Relationship> inferredRels = r.ReadRelationshipFile(inferredRelationships);
 
             //look for dependencies (both DestinationId + TypeId)
-            var dependencies = r.IdentifyAllDependencies(extractTargets, localConcepts, statedRels, inferredRels);
+            var dependencies = r.IdentifyDependencies(extractTargets, localConcepts, statedRels);
 
             Assert.AreEqual(2, dependencies.Count());
         }
@@ -197,6 +197,26 @@ namespace Content_For_Promotion_Extractor.Tests
             int identifiedDependencycount = extractTargets.Count() - initialTargets;
 
             Assert.AreEqual(1, identifiedDependencycount);
+        }
+
+        [TestMethod()]
+        public void IdentifyAllDependencies_Test()
+        {
+            string targets = localPath + targetList;
+            string localConcept = localPath + localConceptFile;
+            string sRelationship = path + statedRelationshipFile;
+            string iRelationship = path + inferredRelationshipFile;
+
+            RF2Reader r = new RF2Reader();
+
+            List<string> extractTargets = r.ReadListOfIds(targets);
+            List<Concept> localConcepts = r.ReadConceptFile(localConcept, true, false);
+            List<Relationship> statedRelationships = r.ReadRelationshipFile(sRelationship);
+            List<Relationship> inferredRelationships = r.ReadRelationshipFile(iRelationship);
+
+            var allDependencies = r.IdentifyAllDependencies(extractTargets, localConcepts, statedRelationships, inferredRelationships);
+            
+            Assert.AreEqual(2, allDependencies.Count());
         }
     }
 }
