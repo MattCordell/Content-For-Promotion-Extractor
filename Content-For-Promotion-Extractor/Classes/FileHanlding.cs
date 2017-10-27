@@ -116,7 +116,7 @@ namespace Content_For_Promotion_Extractor
                 }
                 return relationships;
             }
-        }
+        }        
 
         // checks both stated and inferred for dependencies
         public List<string> IdentifyAllDependencies(List<string> extractTargets, List<Concept> localconcepts, List<Relationship> statedRelationships, List<Relationship> inferredRelationships)
@@ -215,6 +215,21 @@ namespace Content_For_Promotion_Extractor
             return dependencies.ToList();
         }
 
+        public List<Concept> ExtractedConcepts(List<string> extractTargets, List<Concept> concepts)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Description> ExtractDescriptions(List<string> extractTargets, List<Description> descriptions)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Relationship> ExtractRelationships(List<string> extractTargets, List<Relationship> statedRelationships)
+        {
+            throw new NotImplementedException();
+        }
+        
     }
 
 }

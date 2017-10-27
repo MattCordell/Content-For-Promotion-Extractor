@@ -41,13 +41,16 @@ namespace Content_For_Promotion_Extractor
             var statedRelationships = r.ReadRelationshipFile(donorStatedFile);
             var relationships = r.ReadRelationshipFile(donorInferredFile);
 
-            ExtractTargets = r.IdentifyAllDependencies(ExtractTargets, Localconcepts, statedRelationships, relationships);
+            //Check relationship file for any dependencies (stated+full)
+            var dependencies = r.IdentifyAllDependencies(ExtractTargets, Localconcepts, statedRelationships, relationships);
+            //Add any dependencies to extract list
+            ExtractTargets = (ExtractTargets.Union(dependencies)).Distinct().ToList();
 
-            //Check relationship file for any dependencies (stated+full?)
-            //ExtractTargets = r.IdentifyDependencies(ExtractTargets, file);
-
-
-            //Identify all the descriptions and relationships for the Target Concepts.
+            //Identify all the entries from the concepts,descriptions & both relationships for the complete exrtact targets.
+            List<Concept> ExtractedConcepts = r.ExtractedConcepts(ExtractTargets, concepts);
+            List<Description> ExtractedDescriptions = r.ExtractDescriptions(ExtractTargets, descriptions);
+            List<Relationship> ExtractedStated = r.ExtractRelationships(ExtractTargets, statedRelationships);
+            List<Relationship> ExtractedRelationships = r.ExtractRelationships(ExtractTargets, relationships);
 
             //Implement an RF2 writer also.
             //Write the above lists out as RF2 files/extension bundle

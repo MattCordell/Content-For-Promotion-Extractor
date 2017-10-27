@@ -215,8 +215,26 @@ namespace Content_For_Promotion_Extractor.Tests
             List<Relationship> inferredRelationships = r.ReadRelationshipFile(iRelationship);
 
             var allDependencies = r.IdentifyAllDependencies(extractTargets, localConcepts, statedRelationships, inferredRelationships);
-            
+
             Assert.AreEqual(2, allDependencies.Count());
+        }
+
+        [TestMethod()]
+        public void ExtractedConceptsTest()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void ExtractDescriptionsTest()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void ExtractRelationshipsTest()
+        {
+            Assert.Fail();
         }
     }
 }
