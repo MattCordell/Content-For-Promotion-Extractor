@@ -120,11 +120,28 @@ namespace Content_For_Promotion_Extractor
 
         public List<string> IdentifyAllDependencies(List<string> extractTargets, List<Concept> localConcepts, List<Relationship> statedRelationships, List<Relationship> inferredrelationships)
         {
-            //Get Stated Dependendencies Destination + TypeId
-            //Get Inferred Dependendencies Destination + TypeId
-            var foo = GetTypeIdIdDependencies(extractTargets, localConcepts, statedRelationships);
+            List<string> dependencies = new List<string>();
 
-            throw new NotImplementedException();
+            var typeIdDependencies = GetTypeIdIdDependencies(extractTargets, localConcepts, statedRelationships);
+            var destinationIdDependencies = GetDestinationIdDependencies(extractTargets, localConcepts, statedRelationships);
+
+            var newDependencies = typeIdDependencies.Union(destinationIdDependencies);
+
+            //recursively check for new dependencies.
+            //each new dependency needs to be added to the extract targets to find further dependencies
+            while (newDependencies.Count() > 0)
+            {
+                dependencies.InsertRange(0, newDependencies);
+                extractTargets.InsertRange(0, dependencies);
+
+                typeIdDependencies = GetTypeIdIdDependencies(extractTargets, localConcepts, statedRelationships);
+                destinationIdDependencies = GetDestinationIdDependencies(extractTargets, localConcepts, statedRelationships);
+
+                newDependencies = typeIdDependencies.Union(destinationIdDependencies);
+            }
+
+            // return deduplicated list
+            return dependencies.Distinct().ToList();
         }
 
         public List<string> GetTypeIdIdDependencies(List<string> extractTargets, List<Concept> localConcepts, List<Relationship> Relationships)
