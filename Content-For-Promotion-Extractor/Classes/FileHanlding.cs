@@ -11,7 +11,7 @@ namespace Content_For_Promotion_Extractor
     public class RF2Reader
     {
         //Reads all of a Concepts file into List
-        public List<Concept> ReadConceptFile(string fileName, bool onlyactivecomponents = true)
+        public List<Concept> ReadConceptFile(string fileName, bool onlyactivecomponents = true, bool excludeCoreModules = true)
         {
             using (StreamReader file = File.OpenText(fileName))
             {
@@ -20,10 +20,23 @@ namespace Content_For_Promotion_Extractor
 
                 while (!file.EndOfStream)
                 {
-                    line = file.ReadLine(); // skip header
+                    line = file.ReadLine();
                     var fields = line.Split('\t');
 
-                    if (fields[3] != "900000000000207008" && fields[3] != "900000000000012004")
+                    if (excludeCoreModules && fields[3] != "900000000000207008" && fields[3] != "900000000000012004")
+                    {
+                        if (onlyactivecomponents && fields[2] == "1")
+                        {
+                            Concept c = new Concept(fields);
+                            concepts.Add(c);
+                        }
+                        else if (!onlyactivecomponents)
+                        {
+                            Concept c = new Concept(fields);
+                            concepts.Add(c);
+                        }
+                    }
+                    else if (!excludeCoreModules)
                     {
                         if (onlyactivecomponents && fields[2] == "1")
                         {
@@ -51,7 +64,7 @@ namespace Content_For_Promotion_Extractor
 
                 while (!file.EndOfStream)
                 {
-                    line = file.ReadLine(); // skip header
+                    line = file.ReadLine();
                     var fields = line.Split('\t');
 
                     if (fields[3] != "900000000000207008" && fields[3] != "900000000000012004")
@@ -83,7 +96,7 @@ namespace Content_For_Promotion_Extractor
 
                 while (!file.EndOfStream)
                 {
-                    line = file.ReadLine(); // skip header
+                    line = file.ReadLine();
                     var fields = line.Split('\t');
 
                     if (fields[3] != "900000000000207008" && fields[3] != "900000000000012004")
@@ -105,6 +118,20 @@ namespace Content_For_Promotion_Extractor
             }
         }
 
+        public List<string> IdentifyAllDependencies(List<string> extractTargets, List<Concept> localConcepts, List<Relationship> statedRelationships, List<Relationship> inferredrelationships)
+        {
+            //Get Stated Dependendencies Destination + TypeId
+            //Get Inferred Dependendencies Destination + TypeId
+            var foo = GetTypeIdIdDependencies(extractTargets, localConcepts, statedRelationships);
+
+            throw new NotImplementedException();
+        }
+
+        public List<string> GetTypeIdIdDependencies(List<string> extractTargets, List<Concept> localConcepts, List<Relationship> Relationships)
+        {
+            throw new NotImplementedException();
+        }
+
         //Reads a list of ids from a file into List
         public List<string> ReadListOfIds(string fileName)
         {
@@ -115,15 +142,33 @@ namespace Content_For_Promotion_Extractor
 
                 while (!file.EndOfStream)
                 {
-                    ids.Add(file.ReadLine());
+                    line = file.ReadLine();
+                    var fields = line.Split('\t');
+
+                    ids.Add(fields[0]);
                 }
                 return ids;
             }
         }
 
-        public List<string> IdentifyDependencies(List<string> extractTargets, string file)
+        public List<string> GetDestinationIdDependencies(List<string> extractTargets, List<Concept> localConcepts, List<Relationship> xRelationships)
         {
-            throw new NotImplementedException();
+
+            // select all the destinationIds for target concepts
+            var query1 = (from relationship in xRelationships
+                        join target in extractTargets
+                        on relationship.sourceId equals target
+                        select relationship.destinationId).Distinct();
+
+            var query2 = (from c in localConcepts
+                          select c.id).Distinct();
+
+            var localAndExtract = extractTargets.Union(query2);
+
+            var dependencies = query1.Except(localAndExtract).Distinct();
+
+
+            return dependencies.ToList();
         }
 
     }

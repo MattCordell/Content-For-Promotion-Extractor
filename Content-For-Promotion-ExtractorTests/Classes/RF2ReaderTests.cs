@@ -15,7 +15,8 @@ namespace Content_For_Promotion_Extractor.Tests
 
         string conceptFile = "sct2_Concept_Snapshot_20171130.txt";
         string descriptionFile = "sct2_Description_Snapshot_20171130.txt";
-        string relationshipFile = "sct2_StatedRelationship_Snapshot_20171130.txt";
+        string statedRelationshipFile = "sct2_StatedRelationship_Snapshot_20171130.txt";
+        string inferredRelationshipFile = "sct2_Relationship_Snapshot_20171130.txt";
 
         string localPath = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\TestData\";
 
@@ -70,7 +71,7 @@ namespace Content_For_Promotion_Extractor.Tests
         [TestMethod()]
         public void ReadRelationshipFile_AllStatus_Test()
         {
-            string testFile = path + relationshipFile;
+            string testFile = path + statedRelationshipFile;
 
             RF2Reader r = new RF2Reader();
             var relationships = r.ReadRelationshipFile(testFile, false);
@@ -81,7 +82,7 @@ namespace Content_For_Promotion_Extractor.Tests
         [TestMethod()]
         public void ReadRelationshipFile_ActiveOnly_Test()
         {
-            string testFile = path + relationshipFile;
+            string testFile = path + statedRelationshipFile;
 
             RF2Reader r = new RF2Reader();
             var relationships = r.ReadRelationshipFile(testFile);
@@ -90,7 +91,7 @@ namespace Content_For_Promotion_Extractor.Tests
         }
 
         [TestMethod()]
-        public void ReadListOfIdsTest()
+        public void ReadListOfIds_Test()
         {
             string testFile = localPath + targetList;
 
@@ -101,16 +102,99 @@ namespace Content_For_Promotion_Extractor.Tests
         }
 
         [TestMethod()]
-        public void IdentifyDependenciesTest()
+        public void IdentifyDestinationIdDependencies_Test()
         {
+            string targets = localPath + targetList;
             string localConcept = localPath + localConceptFile;
-            string xRelationship = path + relationshipFile;
-            
+            string xRelationship = path + statedRelationshipFile;
 
             RF2Reader r = new RF2Reader();
-            var relationships = r.ReadRelationshipFile(testFile);
+
+            List<string> extractTargets = r.ReadListOfIds(targets);
+            List<Concept> localConcepts = r.ReadConceptFile(localConcept, true, false);
+            List<Relationship> localRelationships = r.ReadRelationshipFile(xRelationship);
+
+            // initial number of concepts to extract
+            var initialTargets = extractTargets.Count();
+
+            //look for dependencies
+            var dependencies = r.GetDestinationIdDependencies(extractTargets, localConcepts, localRelationships);
+
+            //while there are dependencies, add them to the list, and look for more.
+            while (dependencies.Count() > 0)
+            {
+                extractTargets.InsertRange(0, dependencies);
+
+                dependencies = r.GetDestinationIdDependencies(extractTargets, localConcepts, localRelationships);
+            }
+
+            // number of dependencies found is the final number to extract - the initial;
+            int identifiedDependencycount = extractTargets.Count() - initialTargets;
+
+            Assert.AreEqual(1, identifiedDependencycount);
+        }
+
+        [TestMethod()]
+        public void IdentifyAllDependencies_Test()
+        {
+            string targets = localPath + targetList;
+            string localConcept = localPath + localConceptFile;
+            string statedRelationships = path + statedRelationshipFile;
+            string inferredRelationships = path + inferredRelationshipFile;
+
+            RF2Reader r = new RF2Reader();
+
+            List<string> extractTargets = r.ReadListOfIds(targets);
+            List<Concept> localConcepts = r.ReadConceptFile(localConcept, true, false);
+            List<Relationship> statedRels = r.ReadRelationshipFile(statedRelationships);
+            List<Relationship> inferredRels = r.ReadRelationshipFile(inferredRelationships);
+
+            //look for dependencies (both DestinationId + TypeId)
+            var dependencies = r.IdentifyAllDependencies(extractTargets, localConcepts, statedRels, inferredRels);
+
+            Assert.AreEqual(2, dependencies.Count());
+        }
+
+        [TestMethod()]
+        public void ReadConceptFile_ActiveAllModules_Test()
+        {
+            string localConcept = localPath + localConceptFile;
+            List<Concept> localConcepts = r.ReadConceptFile(localConcept, true, false);
 
             Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void GetTypeIdIdDependencies_Test()
+        {
+            string targets = localPath + targetList;
+            string localConcept = localPath + localConceptFile;
+            string xRelationship = path + statedRelationshipFile;
+
+            RF2Reader r = new RF2Reader();
+
+            List<string> extractTargets = r.ReadListOfIds(targets);
+            List<Concept> localConcepts = r.ReadConceptFile(localConcept, true, false);
+            List<Relationship> localRelationships = r.ReadRelationshipFile(xRelationship);
+
+            // initial number of concepts to extract
+            int initialTargets = extractTargets.Count();
+
+            //look for dependencies
+            var dependencies = r.GetTypeIdIdDependencies(extractTargets, localConcepts, localRelationships);
+
+            //while there are dependencies, add them to the list, and look for more.
+            while (dependencies.Count() > 0)
+            {
+                extractTargets.InsertRange(0, dependencies);
+
+                dependencies = r.GetTypeIdIdDependencies(extractTargets, localConcepts, localRelationships);
+            }
+
+            // number of dependencies found is the final number to extract - the initial;
+            int identifiedDependencycount = extractTargets.Count() - initialTargets;
+
+            Assert.AreEqual(1, identifiedDependencycount);
         }
     }
 }
