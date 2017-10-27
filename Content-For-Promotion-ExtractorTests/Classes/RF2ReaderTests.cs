@@ -159,9 +159,11 @@ namespace Content_For_Promotion_Extractor.Tests
         public void ReadConceptFile_ActiveAllModules_Test()
         {
             string localConcept = localPath + localConceptFile;
+            RF2Reader r = new RF2Reader();
+
             List<Concept> localConcepts = r.ReadConceptFile(localConcept, true, false);
 
-            Assert.Fail();
+            Assert.AreEqual(2, localConcepts.Count());
         }
 
         [TestMethod()]
