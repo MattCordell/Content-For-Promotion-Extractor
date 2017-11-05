@@ -249,7 +249,15 @@ namespace Content_For_Promotion_Extractor
 
         public List<Description> ExtractDescriptions(List<string> extractTargets)
         {
-            throw new NotImplementedException();
+            // Read in all the descriptions active/non-core
+            var allDescriptions = ReadDescriptionFile(DescriptionsPath);
+
+            List<Description> descriptionsToExtract = (from c in allDescriptions
+                                               join target in extractTargets
+                                               on c.conceptId equals target
+                                               select c).ToList();
+
+            return descriptionsToExtract;
         }
 
         public List<Relationship> ExtractRelationships(List<string> extractTargets)

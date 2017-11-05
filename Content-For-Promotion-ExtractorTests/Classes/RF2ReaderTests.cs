@@ -227,7 +227,6 @@ namespace Content_For_Promotion_Extractor.Tests
 
             List<string> extractTargets = new List<string>();
             
-
             extractTargets.Add("151234567100");
             extractTargets.Add("171234567100");
             extractTargets.Add("221234567100");
@@ -245,6 +244,7 @@ namespace Content_For_Promotion_Extractor.Tests
         public void ExtractDescriptions_Test()
         {
             RF2Reader r = new RF2Reader();
+            r.DescriptionsPath = path + descriptionFile;
 
             List<string> extractTargets = new List<string>();
             extractTargets.Add("101234567100");
@@ -254,9 +254,9 @@ namespace Content_For_Promotion_Extractor.Tests
             // These 4 concepts should yield 4 descriptions
             // Active descriptions not in core only for 141234567100 + 241234567100
 
-            var Descriptions = r.ExtractDescriptions(extractTargets);
+            var descriptions = r.ExtractDescriptions(extractTargets);
 
-            Assert.AreEqual(4, Descriptions.Count());
+            Assert.AreEqual(4, descriptions.Count());
         }
 
         [TestMethod()]
@@ -268,13 +268,15 @@ namespace Content_For_Promotion_Extractor.Tests
             extractTargets.Add("101234567100");
             extractTargets.Add("141234567100");
             extractTargets.Add("241234567100");
+            extractTargets.Add("171234567100"); // two relationships to be extracted. two not (inactive + core module)
 
-            // These 4 concepts should yield 4 descriptions
-            // Active descriptions not in core only for 141234567100 + 241234567100
 
-            var Descriptions = r.ExtractRelationships(extractTargets);
+            // These 4 concepts should yield 5 relationships
+            // All except 171234567100 have a single active rel.
 
-            Assert.AreEqual(3, Descriptions.Count());
+            var relationships = r.ExtractRelationships(extractTargets);
+
+            Assert.AreEqual(5, relationships.Count());
         }
     }
 }
