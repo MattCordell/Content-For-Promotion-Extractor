@@ -263,6 +263,7 @@ namespace Content_For_Promotion_Extractor.Tests
         public void ExtractRelationshipsTest()
         {
             RF2Reader r = new RF2Reader();
+            r.RelationshipsPath = path + statedRelationshipFile;
 
             List<string> extractTargets = new List<string>();
             extractTargets.Add("101234567100");

@@ -262,7 +262,15 @@ namespace Content_For_Promotion_Extractor
 
         public List<Relationship> ExtractRelationships(List<string> extractTargets)
         {
-            throw new NotImplementedException();
+            // Read in all the descriptions active/non-core
+            var allRelationships = ReadRelationshipFile(RelationshipsPath);
+
+            List<Relationship> relationshipsToExtract = (from c in allRelationships
+                                                       join target in extractTargets
+                                                       on c.sourceId equals target
+                                                       select c).ToList();
+
+            return relationshipsToExtract;
         }
         
     }

@@ -30,6 +30,10 @@ namespace Content_For_Promotion_Extractor
             string donorInferredFile = @"C:\Users\MatthewCordell\Documents\Visual Studio 2015\Projects\Content-For-Promotion-Extractor\Content-For-Promotion-ExtractorTests\TestData\RF2Release\Snapshot\Terminology\sct2_Relationship_Snapshot_20171130.txt";
 
             RF2Reader r = new RF2Reader();
+            r.ConceptsPath = donorConceptFile;
+            r.DescriptionsPath = donorDescriptionFile;
+            r.StatedRelsPath = donorStatedFile;
+            r.RelationshipsPath = donorInferredFile;
 
             Console.WriteLine("Importing local stuff");
             var ExtractTargets = r.ReadListOfIds(conceptsForPromotionFile);  // flat list of IDs for cherry picking
