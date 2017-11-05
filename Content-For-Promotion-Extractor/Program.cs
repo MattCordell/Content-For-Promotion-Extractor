@@ -35,26 +35,33 @@ namespace Content_For_Promotion_Extractor
             r.StatedRelsPath = donorStatedFile;
             r.RelationshipsPath = donorInferredFile;
 
-            Console.WriteLine("Importing local stuff");
+            Console.WriteLine("Importing List of Target Concepts");
             var ExtractTargets = r.ReadListOfIds(conceptsForPromotionFile);  // flat list of IDs for cherry picking
-            var Localconcepts = r.ReadConceptFile(localConceptsFile, true, false); //Local concpets (already available)
+            Console.WriteLine("Target Concepts = " + ExtractTargets.Count());
 
-            Console.WriteLine("Importing Target Extension Snapshot");
-            var concepts = r.ReadConceptFile(donorConceptFile);
-            var descriptions = r.ReadDescriptionFile(donorDescriptionFile);
+
+            Console.WriteLine("Identifying Dependencies");
+            // Check this dependency logic... looks messy
+            var Localconcepts = r.ReadConceptFile(localConceptsFile, true, false); //Local concpets (already available)
             var statedRelationships = r.ReadRelationshipFile(donorStatedFile);
             var relationships = r.ReadRelationshipFile(donorInferredFile);
-
             //Check relationship file for any dependencies (stated+full)
             var dependencies = r.IdentifyAllDependencies(ExtractTargets, Localconcepts, statedRelationships, relationships);
             //Add any dependencies to extract list
             ExtractTargets = (ExtractTargets.Union(dependencies)).Distinct().ToList();
+            Console.WriteLine("Total Target Concepts = " + ExtractTargets.Count());
 
+
+            Console.WriteLine("Extracting Target Data from Snapshot");         
             //Identify all the entries from the concepts,descriptions & both relationships for the complete exrtact targets.
             List<Concept> ExtractedConcepts = r.ExtractConcepts(ExtractTargets);
             List<Description> ExtractedDescriptions = r.ExtractDescriptions(ExtractTargets);
             List<Relationship> ExtractedStated = r.ExtractRelationships(ExtractTargets);
             List<Relationship> ExtractedRelationships = r.ExtractRelationships(ExtractTargets);
+            Console.WriteLine("Concepts extracted = " + ExtractedConcepts.Count().ToString());
+            Console.WriteLine("Descriptions extracted = " + ExtractedDescriptions.Count().ToString());
+            Console.WriteLine("Stated extracted = " + ExtractedStated.Count().ToString());
+            Console.WriteLine("Inferred extracted = " + ExtractedRelationships.Count().ToString());
 
             //Implement an RF2 writer also.
             //Write the above lists out as RF2 files/extension bundle
