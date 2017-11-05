@@ -215,17 +215,17 @@ namespace Content_For_Promotion_Extractor
             return dependencies.ToList();
         }
 
-        public List<Concept> ExtractedConcepts(List<string> extractTargets, List<Concept> concepts)
+        public List<Concept> ExtractConcepts(List<string> extractTargets)
         {
             throw new NotImplementedException();
         }
 
-        public List<Description> ExtractDescriptions(List<string> extractTargets, List<Description> descriptions)
+        public List<Description> ExtractDescriptions(List<string> extractTargets)
         {
             throw new NotImplementedException();
         }
 
-        public List<Relationship> ExtractRelationships(List<string> extractTargets, List<Relationship> statedRelationships)
+        public List<Relationship> ExtractRelationships(List<string> extractTargets)
         {
             throw new NotImplementedException();
         }

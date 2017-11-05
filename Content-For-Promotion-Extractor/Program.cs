@@ -47,10 +47,10 @@ namespace Content_For_Promotion_Extractor
             ExtractTargets = (ExtractTargets.Union(dependencies)).Distinct().ToList();
 
             //Identify all the entries from the concepts,descriptions & both relationships for the complete exrtact targets.
-            List<Concept> ExtractedConcepts = r.ExtractedConcepts(ExtractTargets, concepts);
-            List<Description> ExtractedDescriptions = r.ExtractDescriptions(ExtractTargets, descriptions);
-            List<Relationship> ExtractedStated = r.ExtractRelationships(ExtractTargets, statedRelationships);
-            List<Relationship> ExtractedRelationships = r.ExtractRelationships(ExtractTargets, relationships);
+            List<Concept> ExtractedConcepts = r.ExtractConcepts(ExtractTargets);
+            List<Description> ExtractedDescriptions = r.ExtractDescriptions(ExtractTargets);
+            List<Relationship> ExtractedStated = r.ExtractRelationships(ExtractTargets);
+            List<Relationship> ExtractedRelationships = r.ExtractRelationships(ExtractTargets);
 
             //Implement an RF2 writer also.
             //Write the above lists out as RF2 files/extension bundle

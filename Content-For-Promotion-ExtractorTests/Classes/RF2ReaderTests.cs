@@ -220,21 +220,57 @@ namespace Content_For_Promotion_Extractor.Tests
         }
 
         [TestMethod()]
-        public void ExtractedConceptsTest()
+        public void ExtractConceptsTest()
         {
-            Assert.Fail();
+            RF2Reader r = new RF2Reader();
+
+            List<string> extractTargets = new List<string>();
+            extractTargets.Add("101234567100");
+            extractTargets.Add("141234567100");
+            extractTargets.Add("241234567100");
+
+            // These 4 concepts should yield 4 descriptions
+            // Active descriptions not in core only for 141234567100 + 241234567100
+
+            var Descriptions = r.ExtractConcepts(extractTargets);
+
+            Assert.AreEqual(3, Descriptions.Count());
         }
 
         [TestMethod()]
-        public void ExtractDescriptionsTest()
+        public void ExtractDescriptions_Test()
         {
-            Assert.Fail();
+            RF2Reader r = new RF2Reader();
+
+            List<string> extractTargets = new List<string>();
+            extractTargets.Add("101234567100");
+            extractTargets.Add("141234567100");
+            extractTargets.Add("241234567100");
+
+            // These 4 concepts should yield 4 descriptions
+            // Active descriptions not in core only for 141234567100 + 241234567100
+
+            var Descriptions = r.ExtractDescriptions(extractTargets);
+
+            Assert.AreEqual(4, Descriptions.Count());
         }
 
         [TestMethod()]
         public void ExtractRelationshipsTest()
         {
-            Assert.Fail();
+            RF2Reader r = new RF2Reader();
+
+            List<string> extractTargets = new List<string>();
+            extractTargets.Add("101234567100");
+            extractTargets.Add("141234567100");
+            extractTargets.Add("241234567100");
+
+            // These 4 concepts should yield 4 descriptions
+            // Active descriptions not in core only for 141234567100 + 241234567100
+
+            var Descriptions = r.ExtractRelationships(extractTargets);
+
+            Assert.AreEqual(3, Descriptions.Count());
         }
     }
 }
