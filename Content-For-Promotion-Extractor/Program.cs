@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Content_For_Promotion_Extractor
 {
+    enum ComponentType { Concept, Description, Relationship };
+
     class Program
     {
         static void Main(string[] args)
@@ -70,6 +72,14 @@ namespace Content_For_Promotion_Extractor
             var deps = r.GetDestinationIdDependencies(ExtractTargets, Localconcepts, statedRelationships);
 
             Console.WriteLine(deps.Count().ToString() + " dependencies found");
+
+            Console.WriteLine("Creating RF2 Bundle");
+            RF2Writer w = new RF2Writer();
+
+            w.CreateRf2File(ComponentType.Concept, ExtractedConcepts);
+            w.CreateRf2File(ComponentType.Description, ExtractedDescriptions);
+            w.CreateRf2File(ComponentType.Relationship, ExtractedStated);
+            w.CreateRf2File(ComponentType.Relationship, ExtractedRelationships);
 
             Console.WriteLine("Done");
             Console.ReadKey();

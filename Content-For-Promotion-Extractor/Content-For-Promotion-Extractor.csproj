@@ -47,10 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\FileHanlding.cs" />
+    <Compile Include="Classes\RF2Reader.cs" />
     <Compile Include="Classes\RF2_Classes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Classes\RF2Writer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
