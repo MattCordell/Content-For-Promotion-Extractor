@@ -223,18 +223,22 @@ namespace Content_For_Promotion_Extractor.Tests
         public void ExtractConceptsTest()
         {
             RF2Reader r = new RF2Reader();
+            r.ConceptsPath = path + conceptFile;
 
             List<string> extractTargets = new List<string>();
-            extractTargets.Add("101234567100");
-            extractTargets.Add("141234567100");
+            
+
+            extractTargets.Add("151234567100");
+            extractTargets.Add("171234567100");
+            extractTargets.Add("221234567100");
             extractTargets.Add("241234567100");
+            extractTargets.Add("141234567100"); // inactive concept not to be extracted
 
-            // These 4 concepts should yield 4 descriptions
-            // Active descriptions not in core only for 141234567100 + 241234567100
+            // These 4 concepts should yield 4 active concepts
 
-            var Descriptions = r.ExtractConcepts(extractTargets);
+            var concepts = r.ExtractConcepts(extractTargets);
 
-            Assert.AreEqual(3, Descriptions.Count());
+            Assert.AreEqual(4, concepts.Count());
         }
 
         [TestMethod()]

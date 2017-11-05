@@ -10,6 +10,25 @@ namespace Content_For_Promotion_Extractor
 {
     public class RF2Reader
     {
+        public string EditionPath;
+
+        // paths to the files that are required
+        public string ConceptsPath;
+        public string DescriptionsPath;
+        public string StatedRelsPath;
+        public string RelationshipsPath;
+        
+        public RF2Reader()
+        {
+
+        }
+
+
+        public RF2Reader(string filepath)
+        {
+            EditionPath = filepath;
+        }
+
         //Reads all of a Concepts file into List
         public List<Concept> ReadConceptFile(string fileName, bool onlyactivecomponents = true, bool excludeCoreModules = true)
         {
@@ -217,7 +236,15 @@ namespace Content_For_Promotion_Extractor
 
         public List<Concept> ExtractConcepts(List<string> extractTargets)
         {
-            throw new NotImplementedException();
+            // Read in all the concepts active/non-core
+            var allConcepts = ReadConceptFile(ConceptsPath);
+
+            List<Concept> conceptsToExtract = (from c in allConcepts
+                                     join target in extractTargets
+                                     on c.id equals target
+                                     select c).ToList();
+
+            return conceptsToExtract;
         }
 
         public List<Description> ExtractDescriptions(List<string> extractTargets)
