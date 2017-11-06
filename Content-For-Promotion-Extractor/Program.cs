@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO.Compression;
+using System.IO;
 
 namespace Content_For_Promotion_Extractor
 {
@@ -22,6 +24,32 @@ namespace Content_For_Promotion_Extractor
             string donorStatedFile = @"C:\Extension RoundUp Jan 2017\United States\SnomedCT_USEditionRF2_Production_20170301T120000\SnomedCT_USEditionRF2_Production_20170301T120000\Snapshot\Terminology\sct2_StatedRelationship_Snapshot_US1000124_20170301.txt";
             string donorInferredFile = @"C:\Extension RoundUp Jan 2017\United States\SnomedCT_USEditionRF2_Production_20170301T120000\SnomedCT_USEditionRF2_Production_20170301T120000\Snapshot\Terminology\sct2_Relationship_Snapshot_US1000124_20170301.txt";            
             */
+            Console.WriteLine("Reading Zip");
+
+            string donorZip = @"C:\Users\MatthewCordell\Documents\Visual Studio 2015\Projects\Content-For-Promotion-Extractor\Content-For-Promotion-ExtractorTests\TestData\TestDataRelease.zip";
+            
+            using (ZipArchive archive = ZipFile.OpenRead(donorZip))
+            {
+                foreach (var entry in archive.Entries)
+                {
+                    if (entry.FullName.Contains("sct2_Concept_Snapshot"))
+                    {
+                        entry.ExtractToFile("temp.txt");
+                        using (StreamReader file = File.OpenText("temp.txt"))
+                        {
+                            while (!file.EndOfStream)
+                            {
+                                var line = file.ReadLine();
+                                Console.WriteLine(line);
+                            }
+                        }
+                        File.Delete("temp.txt");
+                        
+                    }
+                }
+            }
+
+            Console.WriteLine("Done with zip");
 
             string conceptsForPromotionFile = @"C:\Users\MatthewCordell\Documents\Visual Studio 2015\Projects\Content-For-Promotion-Extractor\Content-For-Promotion-ExtractorTests\TestData\TargetConceptToBeExtracted.txt";
             string localConceptsFile = @"C:\Users\MatthewCordell\Documents\Visual Studio 2015\Projects\Content-For-Promotion-Extractor\Content-For-Promotion-ExtractorTests\TestData\sct2_Concept_Snapshot_20170401.txt";
