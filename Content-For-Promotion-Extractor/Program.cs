@@ -76,10 +76,10 @@ namespace Content_For_Promotion_Extractor
             Console.WriteLine("Creating RF2 Bundle");
             RF2Writer w = new RF2Writer();
 
-            w.CreateRf2File(ComponentType.Concept, ExtractedConcepts);
-            w.CreateRf2File(ComponentType.Description, ExtractedDescriptions);
-            w.CreateRf2File(ComponentType.Relationship, ExtractedStated);
-            w.CreateRf2File(ComponentType.Relationship, ExtractedRelationships);
+            w.CreateRf2File(ExtractedConcepts,"Concepts.txt");
+            w.CreateRf2File(ExtractedDescriptions,"Descriptions.txt");
+            w.CreateRf2File(ExtractedStated,"Relationships.txt");
+            w.CreateRf2File(ExtractedRelationships,"Stated.txt");
 
             Console.WriteLine("Done");
             Console.ReadKey();

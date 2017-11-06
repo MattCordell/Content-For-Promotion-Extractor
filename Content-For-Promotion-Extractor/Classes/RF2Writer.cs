@@ -9,12 +9,27 @@ namespace Content_For_Promotion_Extractor
         {
         }
 
-        internal void CreateRf2File(ComponentType component, List<Concept> extractedConcepts)
+        internal void CreateRf2File( List<Concept> extractedConcepts, string outfile)
         {
-            //write header based on ComponentType
-            //if (extractedConcepts.GetType() is Concept)
-            // ...
-            // ...
+            //write header
+            
+            //Loop through list and write the contents out.
+
+            throw new NotImplementedException();
+        }
+
+        internal void CreateRf2File(List<Description> extractedConcepts, string outfile)
+        {
+            //write header
+
+            //Loop through list and write the contents out.
+
+            throw new NotImplementedException();
+        }
+
+        internal void CreateRf2File(List<Relationship> extractedConcepts, string outfile)
+        {
+            //write header
 
             //Loop through list and write the contents out.
 
