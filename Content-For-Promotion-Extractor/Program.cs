@@ -8,23 +8,30 @@ using System.IO;
 
 namespace Content_For_Promotion_Extractor
 {
+    // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    //This Progam is a scratchpad until all the classes are written out...
+    // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
     enum ComponentType { Concept, Description, Relationship };
+    
 
     class Program
     {
         static void Main(string[] args)
         {
-            //temp strings for development. Pull these via arg            
-            /*
-            string conceptsForPromotionFile = @"C:\Users\MatthewCordell\Documents\Visual Studio 2015\Projects\promocodes.txt";
-            string localConceptsFile = @"C:\Extension RoundUp Jan 2017\Australia\NCTS_SCT_RF2_DISTRIBUTION_32506021000036107-20161231-ALL\SnomedCT_Release_AU1000036_20161231\RF2Release\Snapshot\AU_Terminology\sct2_Concept_Snapshot_AU1000036_20161231.txt";
+         string promotionModule = "10101010";
 
-            string donorConceptFile = @"C:\Extension RoundUp Jan 2017\United States\SnomedCT_USEditionRF2_Production_20170301T120000\SnomedCT_USEditionRF2_Production_20170301T120000\Snapshot\Terminology\sct2_Concept_Snapshot_US1000124_20170301.txt";
-            string donorDescriptionFile = @"C:\Extension RoundUp Jan 2017\United States\SnomedCT_USEditionRF2_Production_20170301T120000\SnomedCT_USEditionRF2_Production_20170301T120000\Snapshot\Terminology\sct2_Description_Snapshot-en_US1000124_20170301.txt";
-            string donorStatedFile = @"C:\Extension RoundUp Jan 2017\United States\SnomedCT_USEditionRF2_Production_20170301T120000\SnomedCT_USEditionRF2_Production_20170301T120000\Snapshot\Terminology\sct2_StatedRelationship_Snapshot_US1000124_20170301.txt";
-            string donorInferredFile = @"C:\Extension RoundUp Jan 2017\United States\SnomedCT_USEditionRF2_Production_20170301T120000\SnomedCT_USEditionRF2_Production_20170301T120000\Snapshot\Terminology\sct2_Relationship_Snapshot_US1000124_20170301.txt";            
-            */
-            Console.WriteLine("Reading Zip");
+        //temp strings for development. Pull these via arg            
+        /*
+        string conceptsForPromotionFile = @"C:\Users\MatthewCordell\Documents\Visual Studio 2015\Projects\promocodes.txt";
+        string localConceptsFile = @"C:\Extension RoundUp Jan 2017\Australia\NCTS_SCT_RF2_DISTRIBUTION_32506021000036107-20161231-ALL\SnomedCT_Release_AU1000036_20161231\RF2Release\Snapshot\AU_Terminology\sct2_Concept_Snapshot_AU1000036_20161231.txt";
+
+        string donorConceptFile = @"C:\Extension RoundUp Jan 2017\United States\SnomedCT_USEditionRF2_Production_20170301T120000\SnomedCT_USEditionRF2_Production_20170301T120000\Snapshot\Terminology\sct2_Concept_Snapshot_US1000124_20170301.txt";
+        string donorDescriptionFile = @"C:\Extension RoundUp Jan 2017\United States\SnomedCT_USEditionRF2_Production_20170301T120000\SnomedCT_USEditionRF2_Production_20170301T120000\Snapshot\Terminology\sct2_Description_Snapshot-en_US1000124_20170301.txt";
+        string donorStatedFile = @"C:\Extension RoundUp Jan 2017\United States\SnomedCT_USEditionRF2_Production_20170301T120000\SnomedCT_USEditionRF2_Production_20170301T120000\Snapshot\Terminology\sct2_StatedRelationship_Snapshot_US1000124_20170301.txt";
+        string donorInferredFile = @"C:\Extension RoundUp Jan 2017\United States\SnomedCT_USEditionRF2_Production_20170301T120000\SnomedCT_USEditionRF2_Production_20170301T120000\Snapshot\Terminology\sct2_Relationship_Snapshot_US1000124_20170301.txt";            
+        */
+        Console.WriteLine("Reading Zip");
 
             string donorZip = @"C:\Users\MatthewCordell\Documents\Visual Studio 2015\Projects\Content-For-Promotion-Extractor\Content-For-Promotion-ExtractorTests\TestData\TestDataRelease.zip";
             
@@ -104,10 +111,10 @@ namespace Content_For_Promotion_Extractor
             Console.WriteLine("Creating RF2 Bundle");
             RF2Writer w = new RF2Writer();
 
-            w.CreateRf2File(ExtractedConcepts,"Concepts.txt");
-            w.CreateRf2File(ExtractedDescriptions,"Descriptions.txt");
-            w.CreateRf2File(ExtractedStated,"Relationships.txt");
-            w.CreateRf2File(ExtractedRelationships,"Stated.txt");
+            w.CreateRf2File(ExtractedConcepts, promotionModule);
+            w.CreateRf2File(ExtractedDescriptions, promotionModule);
+            w.CreateRf2File(ExtractedStated, promotionModule);
+            w.CreateRf2File(ExtractedRelationships, promotionModule);
 
             Console.WriteLine("Done");
             Console.ReadKey();

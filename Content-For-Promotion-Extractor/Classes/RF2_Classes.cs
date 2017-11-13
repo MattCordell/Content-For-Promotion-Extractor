@@ -27,6 +27,14 @@ namespace Content_For_Promotion_Extractor
         moduleId = s[3];
         definitionStatusId = s[4];
         }
+
+        override public string ToString()
+        {
+            char t = '\t';
+
+            return id + t + effectiveTime + t + active + t + moduleId + t + definitionStatusId;
+        }
+
     }
 
     public class Description
@@ -54,6 +62,13 @@ namespace Content_For_Promotion_Extractor
             typeId = s[6];
             term = s[7];
             caseSignificanceId = s[8];
+        }
+
+        override public string ToString()
+        {
+            char t = '\t';
+
+            return id + t + effectiveTime + t + active + t + moduleId + t + conceptId + t + languageCode + t + typeId + t + term + t + caseSignificanceId;
         }
     }
 
@@ -84,6 +99,14 @@ namespace Content_For_Promotion_Extractor
             typeId = s[7];
             characteristicTypeId = s[8];
             modifierId = s[9];
+        }
+
+        override public string ToString()
+        {
+            char t = '\t';
+
+            return id + t + effectiveTime + t + active + t + moduleId + t + sourceId + t + destinationId + t + relationshipGroup + t + typeId + t + characteristicTypeId + t + modifierId;
+
         }
     }
 

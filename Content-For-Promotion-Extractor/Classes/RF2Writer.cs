@@ -1,39 +1,75 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Content_For_Promotion_Extractor
 {
-    internal class RF2Writer
+    public class RF2Writer
     {
+        private string timeStamp;
+        string extractPath;
+
         public RF2Writer()
         {
+            timeStamp = System.DateTime.Now.ToString("yyyyMMdd");            
+            extractPath = AppDomain.CurrentDomain.BaseDirectory + @"\Extract\Snapshot\Terminology\";
+            Directory.CreateDirectory(extractPath);
+
         }
 
-        internal void CreateRf2File( List<Concept> extractedConcepts, string outfile)
+        public void CreateRf2File( List<Concept> extractedConcepts, string promotionModule)
         {
-            //write header
-            
-            //Loop through list and write the contents out.
+            string path = extractPath  + "sct2_Concept_Snapshot_"+ timeStamp + ".txt";   
+                     
+            using (TextWriter w = new StreamWriter(path, false, System.Text.Encoding.UTF8))
+            {
+                //write out the header
+                w.WriteLine("id	effectiveTime	active	moduleId	definitionStatusId");
 
-            throw new NotImplementedException();
+                //write out all the entries
+                foreach (var concept in extractedConcepts)
+                {
+                    w.WriteLine(concept.ToString());
+                }     
+                           
+            }            
         }
 
-        internal void CreateRf2File(List<Description> extractedConcepts, string outfile)
+        public void CreateRf2File(List<Description> extractedDescriptions, string promotionModule)
         {
-            //write header
+            string path = extractPath + "sct2_Description_Snapshot_" + timeStamp + ".txt";
 
-            //Loop through list and write the contents out.
+            using (TextWriter w = new StreamWriter(path, false, System.Text.Encoding.UTF8))
+            {
+                //write out the header
+                w.WriteLine("id	effectiveTime	active	moduleId	conceptId	languageCode	typeId	term	caseSignificanceId");
 
-            throw new NotImplementedException();
+                //write out all the entries
+                foreach (var description in extractedDescriptions)
+                {
+                    w.WriteLine(description.ToString());
+                }
+
+            }
         }
 
-        internal void CreateRf2File(List<Relationship> extractedConcepts, string outfile)
+        //this needs to handle state+inferred elegantly
+        public void CreateRf2File(List<Relationship> extractedRelationships, string promotionModule)
         {
-            //write header
+            string path = extractPath + "sct2_Relationship_Snapshot_" + timeStamp + ".txt";
 
-            //Loop through list and write the contents out.
+            using (TextWriter w = new StreamWriter(path, false, System.Text.Encoding.UTF8))
+            {
+                //write out the header
+                w.WriteLine("id	effectiveTime	active	moduleId	sourceId	destinationId	relationshipGroup	typeId	characteristicTypeId	modifierId");
 
-            throw new NotImplementedException();
+                //write out all the entries
+                foreach (var relationship in extractedRelationships)
+                {
+                    w.WriteLine(relationship.ToString());
+                }
+
+            }
         }
     }
 }
