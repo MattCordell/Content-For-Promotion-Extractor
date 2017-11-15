@@ -4,6 +4,8 @@ using System.IO;
 
 namespace Content_For_Promotion_Extractor
 {
+    public enum RelationshipType { stated, inferred};
+
     public class RF2Writer
     {
         private string timeStamp;
@@ -54,9 +56,19 @@ namespace Content_For_Promotion_Extractor
         }
 
         //this needs to handle state+inferred elegantly
-        public void CreateRf2File(List<Relationship> extractedRelationships, string promotionModule)
+        public void CreateRf2File(List<Relationship> extractedRelationships, RelationshipType type)
         {
-            string path = extractPath + "sct2_Relationship_Snapshot_" + timeStamp + ".txt";
+            string path;
+
+            if (type == RelationshipType.stated)
+            {
+                path = extractPath + "sct2_StatedRelationship_Snapshot_" + timeStamp + ".txt";
+            }
+            else
+            {
+                path = extractPath + "sct2_Relationship_Snapshot_" + timeStamp + ".txt";
+            }
+            
 
             using (TextWriter w = new StreamWriter(path, false, System.Text.Encoding.UTF8))
             {

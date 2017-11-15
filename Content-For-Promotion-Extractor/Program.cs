@@ -111,10 +111,11 @@ namespace Content_For_Promotion_Extractor
             Console.WriteLine("Creating RF2 Bundle");
             RF2Writer w = new RF2Writer();
 
+            //module update should happen in dedicated class.
             w.CreateRf2File(ExtractedConcepts, promotionModule);
             w.CreateRf2File(ExtractedDescriptions, promotionModule);
-            w.CreateRf2File(ExtractedStated, promotionModule);
-            w.CreateRf2File(ExtractedRelationships, promotionModule);
+            w.CreateRf2File(ExtractedStated, RelationshipType.stated);
+            w.CreateRf2File(ExtractedRelationships, RelationshipType.inferred);
 
             Console.WriteLine("Done");
             Console.ReadKey();
