@@ -19,7 +19,7 @@ namespace Content_For_Promotion_Extractor
 
         }
 
-        public void CreateRf2File( List<Concept> extractedConcepts, string promotionModule)
+        public void CreateRf2File( List<Concept> extractedConcepts)
         {
             string path = extractPath  + "sct2_Concept_Snapshot_Extract_" + timeStamp + ".txt";   
                      
@@ -37,7 +37,7 @@ namespace Content_For_Promotion_Extractor
             }            
         }
 
-        public void CreateRf2File(List<Description> extractedDescriptions, string promotionModule)
+        public void CreateRf2File(List<Description> extractedDescriptions)
         {
             string path = extractPath + "sct2_Description_Snapshot_Extract_" + timeStamp + ".txt";
 
