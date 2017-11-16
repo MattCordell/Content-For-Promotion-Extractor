@@ -49,12 +49,10 @@ namespace Content_For_Promotion_Extractor
         //clean up all the files + Directories that have been extracted
         public void CleanUpExtractedFiles()
         {
-            foreach (var file in createdFiles)
-            {
-                File.Delete(file);
-            }
-
-            Directory.Delete(tempdirectory);
+           if (Directory.Exists(tempdirectory))
+              {
+                  Directory.Delete(tempdirectory);
+              }                         
         }
 
         ~Unpacker()
