@@ -79,6 +79,13 @@ namespace Content_For_Promotion_Extractor
             RF2Writer w = new RF2Writer();
 
             //module update should happen in dedicated class.
+            ExtractedConcepts = r.ModulePromotion(ExtractedConcepts, promotionModule);
+            ExtractedDescriptions = r.ModulePromotion(ExtractedDescriptions, promotionModule);
+            ExtractedStated = r.ModulePromotion(ExtractedStated, promotionModule);
+            ExtractedRelationships = r.ModulePromotion(ExtractedRelationships, promotionModule);
+
+
+            //write all the stuff out (into Extract\RF2\ )
             w.CreateRf2File(ExtractedConcepts);
             w.CreateRf2File(ExtractedDescriptions);
             w.CreateRf2File(ExtractedStated, RelationshipType.stated);

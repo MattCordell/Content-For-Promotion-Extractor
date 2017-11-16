@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.IO;
-
+using System;
 
 namespace Content_For_Promotion_Extractor
 {
@@ -132,7 +132,35 @@ namespace Content_For_Promotion_Extractor
                 }
                 return relationships;
             }
-        }        
+        }
+
+        // Change the  moduleId to the destination Module
+        internal List<Concept> ModulePromotion(List<Concept> extractedComponents, string promotionModule)
+        {
+            foreach (var component in extractedComponents)
+            {
+                component.moduleId = promotionModule;
+            }
+            return extractedComponents;
+        }
+
+        internal List<Relationship> ModulePromotion(List<Relationship> extractedComponents, string promotionModule)
+        {
+            foreach (var component in extractedComponents)
+            {
+                component.moduleId = promotionModule;
+            }
+            return extractedComponents;
+        }
+
+        internal List<Description> ModulePromotion(List<Description> extractedComponents, string promotionModule)
+        {
+            foreach (var component in extractedComponents)
+            {
+                component.moduleId = promotionModule;
+            }
+            return extractedComponents;
+        }
 
         // checks both stated and inferred for dependencies
         public List<string> IdentifyAllDependencies(List<string> extractTargets, List<Concept> localconcepts, List<Relationship> statedRelationships, List<Relationship> inferredRelationships)
