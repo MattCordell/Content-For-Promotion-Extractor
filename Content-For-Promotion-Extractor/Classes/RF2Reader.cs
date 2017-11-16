@@ -30,7 +30,7 @@ namespace Content_For_Promotion_Extractor
         }
 
         //Reads all of a Concepts file into List
-        public List<Concept> ReadConceptFile(string fileName, bool onlyactivecomponents = true, bool excludeCoreModules = true)
+        public List<Concept> ReadConceptFile(string fileName, bool onlyActiveComponents = true, bool excludeCoreModules = true)
         {
             using (StreamReader file = File.OpenText(fileName))
             {
@@ -44,12 +44,12 @@ namespace Content_For_Promotion_Extractor
 
                     if (excludeCoreModules && fields[3] != "900000000000207008" && fields[3] != "900000000000012004")
                     {
-                        if (onlyactivecomponents && fields[2] == "1")
+                        if (onlyActiveComponents && fields[2] == "1")
                         {
                             Concept c = new Concept(fields);
                             concepts.Add(c);
                         }
-                        else if (!onlyactivecomponents)
+                        else if (!onlyActiveComponents)
                         {
                             Concept c = new Concept(fields);
                             concepts.Add(c);
@@ -57,12 +57,12 @@ namespace Content_For_Promotion_Extractor
                     }
                     else if (!excludeCoreModules)
                     {
-                        if (onlyactivecomponents && fields[2] == "1")
+                        if (onlyActiveComponents && fields[2] == "1")
                         {
                             Concept c = new Concept(fields);
                             concepts.Add(c);
                         }
-                        else if (!onlyactivecomponents)
+                        else if (!onlyActiveComponents)
                         {
                             Concept c = new Concept(fields);
                             concepts.Add(c);
