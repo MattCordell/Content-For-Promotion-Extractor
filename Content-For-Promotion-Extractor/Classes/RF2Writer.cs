@@ -21,7 +21,7 @@ namespace Content_For_Promotion_Extractor
 
         public void CreateRf2File( List<Concept> extractedConcepts, string promotionModule)
         {
-            string path = extractPath  + "sct2_Concept_Snapshot_"+ timeStamp + ".txt";   
+            string path = extractPath  + "sct2_Concept_Snapshot_Extract_" + timeStamp + ".txt";   
                      
             using (TextWriter w = new StreamWriter(path, false, System.Text.Encoding.UTF8))
             {
@@ -39,7 +39,7 @@ namespace Content_For_Promotion_Extractor
 
         public void CreateRf2File(List<Description> extractedDescriptions, string promotionModule)
         {
-            string path = extractPath + "sct2_Description_Snapshot_" + timeStamp + ".txt";
+            string path = extractPath + "sct2_Description_Snapshot_Extract_" + timeStamp + ".txt";
 
             using (TextWriter w = new StreamWriter(path, false, System.Text.Encoding.UTF8))
             {
@@ -62,11 +62,11 @@ namespace Content_For_Promotion_Extractor
 
             if (type == RelationshipType.stated)
             {
-                path = extractPath + "sct2_StatedRelationship_Snapshot_" + timeStamp + ".txt";
+                path = extractPath + "sct2_StatedRelationship_Snapshot_Extract_" + timeStamp + ".txt";
             }
             else
             {
-                path = extractPath + "sct2_Relationship_Snapshot_" + timeStamp + ".txt";
+                path = extractPath + "sct2_Relationship_Snapshot_Extract_" + timeStamp + ".txt";
             }
             
 

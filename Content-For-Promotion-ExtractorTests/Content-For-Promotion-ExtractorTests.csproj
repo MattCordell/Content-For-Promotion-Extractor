@@ -57,6 +57,7 @@
     <Compile Include="Classes\RF2ReaderTests.cs" />
     <Compile Include="Classes\RF2WriterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnpackerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Content-For-Promotion-Extractor\Content-For-Promotion-Extractor.csproj">

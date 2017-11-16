@@ -14,7 +14,8 @@ namespace Content_For_Promotion_Extractor
 
     enum ComponentType { Concept, Description, Relationship };
     
-
+    enum RF2File { sct2_Concept_Snapshot , sct2_Description_Snapshot , sct2_Relationship_Snapshot , sct2_StatedRelationship_Snapshot };
+    
     class Program
     {
         static void Main(string[] args)
@@ -34,38 +35,28 @@ namespace Content_For_Promotion_Extractor
         Console.WriteLine("Reading Zip");
 
             string donorZip = @"C:\Users\MatthewCordell\Documents\Visual Studio 2015\Projects\Content-For-Promotion-Extractor\Content-For-Promotion-ExtractorTests\TestData\TestDataRelease.zip";
-            
-            using (ZipArchive archive = ZipFile.OpenRead(donorZip))
-            {
-                foreach (var entry in archive.Entries)
-                {
-                    if (entry.FullName.Contains("sct2_Concept_Snapshot"))
-                    {
-                        entry.ExtractToFile("temp.txt");
-                        using (StreamReader file = File.OpenText("temp.txt"))
-                        {
-                            while (!file.EndOfStream)
-                            {
-                                var line = file.ReadLine();
-                                Console.WriteLine(line);
-                            }
-                        }
-                        File.Delete("temp.txt");
-                        
-                    }
-                }
-            }
+
+            var X = new Unpacker();
+
+            X.Unpack(donorZip, RF2File.sct2_Concept_Snapshot);
+
+            string donorConceptFile = X.Unpack(donorZip, RF2File.sct2_Concept_Snapshot);
+            string donorDescriptionFile = X.Unpack(donorZip, RF2File.sct2_Description_Snapshot);
+            string donorStatedFile = X.Unpack(donorZip, RF2File.sct2_StatedRelationship_Snapshot);
+            string donorInferredFile = X.Unpack(donorZip, RF2File.sct2_Relationship_Snapshot);
+
+
 
             Console.WriteLine("Done with zip");
 
             string conceptsForPromotionFile = @"C:\Users\MatthewCordell\Documents\Visual Studio 2015\Projects\Content-For-Promotion-Extractor\Content-For-Promotion-ExtractorTests\TestData\TargetConceptToBeExtracted.txt";
             string localConceptsFile = @"C:\Users\MatthewCordell\Documents\Visual Studio 2015\Projects\Content-For-Promotion-Extractor\Content-For-Promotion-ExtractorTests\TestData\sct2_Concept_Snapshot_20170401.txt";
-
+            /*
             string donorConceptFile = @"C:\Users\MatthewCordell\Documents\Visual Studio 2015\Projects\Content-For-Promotion-Extractor\Content-For-Promotion-ExtractorTests\TestData\RF2Release\Snapshot\Terminology\sct2_Concept_Snapshot_20171130.txt";
             string donorDescriptionFile = @"C:\Users\MatthewCordell\Documents\Visual Studio 2015\Projects\Content-For-Promotion-Extractor\Content-For-Promotion-ExtractorTests\TestData\RF2Release\Snapshot\Terminology\sct2_Description_Snapshot_20171130.txt";
             string donorStatedFile = @"C:\Users\MatthewCordell\Documents\Visual Studio 2015\Projects\Content-For-Promotion-Extractor\Content-For-Promotion-ExtractorTests\TestData\RF2Release\Snapshot\Terminology\sct2_StatedRelationship_Snapshot_20171130.txt";
             string donorInferredFile = @"C:\Users\MatthewCordell\Documents\Visual Studio 2015\Projects\Content-For-Promotion-Extractor\Content-For-Promotion-ExtractorTests\TestData\RF2Release\Snapshot\Terminology\sct2_Relationship_Snapshot_20171130.txt";
-
+            */
             RF2Reader r = new RF2Reader();
             r.ConceptsPath = donorConceptFile;
             r.DescriptionsPath = donorDescriptionFile;
