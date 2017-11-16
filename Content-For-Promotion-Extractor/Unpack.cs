@@ -5,10 +5,13 @@ using System.Collections.Generic;
 
 namespace Content_For_Promotion_Extractor
 {
+
+    public enum RF2File { sct2_Concept_Snapshot, sct2_Description_Snapshot, sct2_Relationship_Snapshot, sct2_StatedRelationship_Snapshot };
+
     // Unpacker Extracts the desired file from an RF2 Bundle.
     // Paths to extracted files are returned.
     // All Extracted files can be cleaned up on deman. Or with finalise.
-    
+
     public class Unpacker
     {      
         private string extractedFilePath;

@@ -14,7 +14,7 @@ namespace Content_For_Promotion_Extractor
 
     enum ComponentType { Concept, Description, Relationship };
     
-    enum RF2File { sct2_Concept_Snapshot , sct2_Description_Snapshot , sct2_Relationship_Snapshot , sct2_StatedRelationship_Snapshot };
+    
     
     class Program
     {
@@ -37,8 +37,6 @@ namespace Content_For_Promotion_Extractor
             string donorZip = @"C:\Users\MatthewCordell\Documents\Visual Studio 2015\Projects\Content-For-Promotion-Extractor\Content-For-Promotion-ExtractorTests\TestData\TestDataRelease.zip";
 
             var X = new Unpacker();
-
-            X.Unpack(donorZip, RF2File.sct2_Concept_Snapshot);
 
             string donorConceptFile = X.Unpack(donorZip, RF2File.sct2_Concept_Snapshot);
             string donorDescriptionFile = X.Unpack(donorZip, RF2File.sct2_Description_Snapshot);
