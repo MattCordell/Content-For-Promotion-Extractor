@@ -51,7 +51,7 @@ namespace Content_For_Promotion_Extractor
         {
            if (Directory.Exists(tempdirectory))
               {
-                  Directory.Delete(tempdirectory);
+                  Directory.Delete(tempdirectory,true);
               }                         
         }
 

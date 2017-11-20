@@ -135,29 +135,32 @@ namespace Content_For_Promotion_Extractor
         }
 
         // Change the  moduleId to the destination Module
-        internal List<Concept> ModulePromotion(List<Concept> extractedComponents, string promotionModule)
+        internal List<Concept> PromoteComponent(List<Concept> extractedComponents, string promotionModule)
         {
             foreach (var component in extractedComponents)
             {
                 component.moduleId = promotionModule;
+                component.effectiveTime = DateTime.Now.ToString("yyyyMMdd");
             }
             return extractedComponents;
         }
 
-        internal List<Relationship> ModulePromotion(List<Relationship> extractedComponents, string promotionModule)
+        internal List<Relationship> PromoteComponent(List<Relationship> extractedComponents, string promotionModule)
         {
             foreach (var component in extractedComponents)
             {
                 component.moduleId = promotionModule;
+                component.effectiveTime = DateTime.Now.ToString("yyyyMMdd");
             }
             return extractedComponents;
         }
 
-        internal List<Description> ModulePromotion(List<Description> extractedComponents, string promotionModule)
+        internal List<Description> PromoteComponent(List<Description> extractedComponents, string promotionModule)
         {
             foreach (var component in extractedComponents)
             {
                 component.moduleId = promotionModule;
+                component.effectiveTime = DateTime.Now.ToString("yyyyMMdd");
             }
             return extractedComponents;
         }

@@ -18,10 +18,15 @@ namespace Content_For_Promotion_Extractor
         static void Main(string[] args)
         {
             // These variables are will be set by input arguments.
-            string conceptsForPromotionFile = @"C:\Users\MatthewCordell\Documents\Visual Studio 2015\Projects\Content-For-Promotion-Extractor\Content-For-Promotion-ExtractorTests\TestData\TargetConceptToBeExtracted.txt";
-            string donorZip = @"C:\Users\MatthewCordell\Documents\Visual Studio 2015\Projects\Content-For-Promotion-Extractor\Content-For-Promotion-ExtractorTests\TestData\TestDataRelease.zip";
+            //string conceptsForPromotionFile = @"C:\Users\MatthewCordell\Documents\Visual Studio 2015\Projects\Content-For-Promotion-Extractor\Content-For-Promotion-ExtractorTests\TestData\TargetConceptToBeExtracted.txt";
+            //string donorZip = @"C:\Users\MatthewCordell\Documents\Visual Studio 2015\Projects\Content-For-Promotion-Extractor\Content-For-Promotion-ExtractorTests\TestData\TestDataRelease.zip";
+            //string promotionModule = "10101010";
+            //string localConceptsFile = @"C:\Users\MatthewCordell\Documents\Visual Studio 2015\Projects\Content-For-Promotion-Extractor\Content-For-Promotion-ExtractorTests\TestData\sct2_Concept_Snapshot_20170401.txt";
+
+            string conceptsForPromotionFile = @"C:\testTargets.txt";
+            string donorZip = @"C:\Extension RoundUp Jan 2017\United States\SnomedCT_USEditionRF2_Production_20170301T120000.zip";
             string promotionModule = "10101010";
-            string localConceptsFile = @"C:\Users\MatthewCordell\Documents\Visual Studio 2015\Projects\Content-For-Promotion-Extractor\Content-For-Promotion-ExtractorTests\TestData\sct2_Concept_Snapshot_20170401.txt";
+            string localConceptsFile = @"C:\RF2Release\Snapshot\Terminology\sct2_Concept_Snapshot_AU1000036_20170930.txt";
 
             RF2Reader r = new RF2Reader();
 
@@ -79,10 +84,10 @@ namespace Content_For_Promotion_Extractor
             RF2Writer w = new RF2Writer();
 
             //module update should happen in dedicated class.
-            ExtractedConcepts = r.ModulePromotion(ExtractedConcepts, promotionModule);
-            ExtractedDescriptions = r.ModulePromotion(ExtractedDescriptions, promotionModule);
-            ExtractedStated = r.ModulePromotion(ExtractedStated, promotionModule);
-            ExtractedRelationships = r.ModulePromotion(ExtractedRelationships, promotionModule);
+            ExtractedConcepts = r.PromoteComponent(ExtractedConcepts, promotionModule);
+            ExtractedDescriptions = r.PromoteComponent(ExtractedDescriptions, promotionModule);
+            ExtractedStated = r.PromoteComponent(ExtractedStated, promotionModule);
+            ExtractedRelationships = r.PromoteComponent(ExtractedRelationships, promotionModule);
 
 
             //write all the stuff out (into Extract\RF2\ )
