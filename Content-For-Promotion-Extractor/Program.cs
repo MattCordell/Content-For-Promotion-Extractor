@@ -23,10 +23,19 @@ namespace Content_For_Promotion_Extractor
             //string promotionModule = "10101010";
             //string localConceptsFile = @"C:\Users\MatthewCordell\Documents\Visual Studio 2015\Projects\Content-For-Promotion-Extractor\Content-For-Promotion-ExtractorTests\TestData\sct2_Concept_Snapshot_20170401.txt";
 
+            /*
             string conceptsForPromotionFile = @"C:\testTargets.txt";
             string donorZip = @"C:\Extension RoundUp Jan 2017\United States\SnomedCT_USEditionRF2_Production_20170301T120000.zip";
             string promotionModule = "10101010";
             string localConceptsFile = @"C:\RF2Release\Snapshot\Terminology\sct2_Concept_Snapshot_AU1000036_20170930.txt";
+            */
+
+            //need to validate arguments
+
+            string conceptsForPromotionFile =args[0];
+            string donorZip = args[1];
+            string promotionModule = args[2];
+            string localConceptsFile = args[3];
 
             RF2Reader r = new RF2Reader();
 
