@@ -17,29 +17,24 @@ namespace Content_For_Promotion_Extractor
     {
         static void Main(string[] args)
         {
-            // These variables are will be set by input arguments.
-            //string conceptsForPromotionFile = @"C:\Users\MatthewCordell\Documents\Visual Studio 2015\Projects\Content-For-Promotion-Extractor\Content-For-Promotion-ExtractorTests\TestData\TargetConceptToBeExtracted.txt";
-            //string donorZip = @"C:\Users\MatthewCordell\Documents\Visual Studio 2015\Projects\Content-For-Promotion-Extractor\Content-For-Promotion-ExtractorTests\TestData\TestDataRelease.zip";
-            //string promotionModule = "10101010";
-            //string localConceptsFile = @"C:\Users\MatthewCordell\Documents\Visual Studio 2015\Projects\Content-For-Promotion-Extractor\Content-For-Promotion-ExtractorTests\TestData\sct2_Concept_Snapshot_20170401.txt";
+            
+            string conceptsForPromotionFile = @"C:\tmp\Sample_AU_concepts_for_Promotion_20180322.txt";
+            string donorZip = @"C:\tmp\combined-releasefiles.zip";
+            string promotionModule = "32506021000036107";           
+            string localConceptsFile = @"C:\tmp\sct2_Concept_Snapshot_INT_20180131.txt";
 
             /*
-            string conceptsForPromotionFile = @"C:\testTargets.txt";
-            string donorZip = @"C:\Extension RoundUp Jan 2017\United States\SnomedCT_USEditionRF2_Production_20170301T120000.zip";
-            string promotionModule = "10101010";
-            string localConceptsFile = @"C:\RF2Release\Snapshot\Terminology\sct2_Concept_Snapshot_AU1000036_20170930.txt";
-            */
-
             //need to validate arguments
 
             string conceptsForPromotionFile =args[0];
             string donorZip = args[1];
             string promotionModule = args[2];
-            string localConceptsFile = args[3];
+            string localConceptsFile = args[3];            
+            */
 
             RF2Reader r = new RF2Reader();
 
-            // Import flasy list of IDs for cherry picking from donor edition
+            // Import list of IDs for cherry picking from donor edition
             var ExtractTargets = r.ReadListOfIds(conceptsForPromotionFile);
             Console.WriteLine("Initial target concepts for promotion = " + ExtractTargets.Count());
 
@@ -53,7 +48,7 @@ namespace Content_For_Promotion_Extractor
             r.ConceptsPath = donorConceptFile;
             r.DescriptionsPath = donorDescriptionFile;
             r.StatedRelsPath = donorStatedFile;
-            r.RelationshipsPath = donorInferredFile;
+            r.InferredRelsPath = donorInferredFile;
 
             Console.WriteLine("Donor core files successfully extracted");                       
 
@@ -79,8 +74,8 @@ namespace Content_For_Promotion_Extractor
             //Identify all the entries from the concepts,descriptions & both relationships for the complete exrtact targets.
             List<Concept> ExtractedConcepts = r.ExtractConcepts(ExtractTargets);
             List<Description> ExtractedDescriptions = r.ExtractDescriptions(ExtractTargets);
-            List<Relationship> ExtractedStated = r.ExtractRelationships(ExtractTargets);
-            List<Relationship> ExtractedRelationships = r.ExtractRelationships(ExtractTargets);
+            List<Relationship> ExtractedStated = r.ExtractRelationships(ExtractTargets, Relationship.RF2CharacteristicType.Stated);
+            List<Relationship> ExtractedRelationships = r.ExtractRelationships(ExtractTargets, Relationship.RF2CharacteristicType.Inferred);
 
             pckr.CleanUpExtractedFiles();
 

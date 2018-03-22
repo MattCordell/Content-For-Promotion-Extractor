@@ -71,6 +71,8 @@ namespace Content_For_Promotion_Extractor
 
     public class Relationship
     {
+        public enum RF2CharacteristicType { Stated, Inferred };
+
         public string id;
         public string effectiveTime;
         public string active;

@@ -14,14 +14,14 @@ namespace Content_For_Promotion_Extractor
         public RF2Writer()
         {
             timeStamp = System.DateTime.Now.ToString("yyyyMMdd");            
-            extractPath = AppDomain.CurrentDomain.BaseDirectory + @"\Extract\Snapshot\Terminology\";
+            extractPath = AppDomain.CurrentDomain.BaseDirectory + @"\Extract\Delta\Terminology\";
             Directory.CreateDirectory(extractPath);
 
         }
 
         public void CreateRf2File( List<Concept> extractedConcepts)
         {
-            string path = extractPath  + "sct2_Concept_Snapshot_Extract_" + timeStamp + ".txt";   
+            string path = extractPath  + "sct2_Concept_Delta_Extract_" + timeStamp + ".txt";   
                      
             using (TextWriter w = new StreamWriter(path, false, System.Text.Encoding.UTF8))
             {
@@ -39,7 +39,7 @@ namespace Content_For_Promotion_Extractor
 
         public void CreateRf2File(List<Description> extractedDescriptions)
         {
-            string path = extractPath + "sct2_Description_Snapshot_Extract_" + timeStamp + ".txt";
+            string path = extractPath + "sct2_Description_Delta_Extract_" + timeStamp + ".txt";
 
             using (TextWriter w = new StreamWriter(path, false, System.Text.Encoding.UTF8))
             {
@@ -62,11 +62,11 @@ namespace Content_For_Promotion_Extractor
 
             if (type == RelationshipType.stated)
             {
-                path = extractPath + "sct2_StatedRelationship_Snapshot_Extract_" + timeStamp + ".txt";
+                path = extractPath + "sct2_StatedRelationship_Delta_Extract_" + timeStamp + ".txt";
             }
             else
             {
-                path = extractPath + "sct2_Relationship_Snapshot_Extract_" + timeStamp + ".txt";
+                path = extractPath + "sct2_Relationship_Delta_Extract_" + timeStamp + ".txt";
             }
             
 

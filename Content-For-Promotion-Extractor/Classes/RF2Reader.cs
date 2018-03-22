@@ -5,6 +5,8 @@ using System;
 
 namespace Content_For_Promotion_Extractor
 {
+    
+
     public class RF2Reader
     {
         public string EditionPath;
@@ -13,8 +15,9 @@ namespace Content_For_Promotion_Extractor
         public string ConceptsPath;
         public string DescriptionsPath;
         public string StatedRelsPath;
-        public string RelationshipsPath;
-        
+        public string InferredRelsPath;
+                
+
         public RF2Reader()
         {
 
@@ -288,11 +291,22 @@ namespace Content_For_Promotion_Extractor
             return descriptionsToExtract;
         }
 
-        public List<Relationship> ExtractRelationships(List<string> extractTargets)
+        //default
+        public List<Relationship> ExtractRelationships(List<string> extractTargets, Relationship.RF2CharacteristicType fileType)
         {
-            // Read in all the descriptions active/non-core
-            var allRelationships = ReadRelationshipFile(RelationshipsPath);
+            List<Relationship> allRelationships = new List<Relationship>();
 
+            // Read in all the descriptions active/non-core
+            //var allRelationships = ReadRelationshipFile(RelationshipsPath);
+            if (fileType == Relationship.RF2CharacteristicType.Stated)
+            {
+                allRelationships = ReadRelationshipFile(StatedRelsPath);
+            }
+            else if (fileType == Relationship.RF2CharacteristicType.Inferred)
+            {
+                allRelationships = ReadRelationshipFile(InferredRelsPath);
+            }
+                      
             List<Relationship> relationshipsToExtract = (from c in allRelationships
                                                        join target in extractTargets
                                                        on c.sourceId equals target
