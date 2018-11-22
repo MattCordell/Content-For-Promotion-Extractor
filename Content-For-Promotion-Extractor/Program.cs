@@ -17,11 +17,12 @@ namespace Content_For_Promotion_Extractor
     {
         static void Main(string[] args)
         {
-            
-            string conceptsForPromotionFile = @"C:\tmp\Sample_AU_concepts_for_Promotion_20180322.txt";
-            string donorZip = @"C:\tmp\combined-releasefiles.zip";
+
+            //input parameters
+            string conceptsForPromotionFile = @"Sample_AU_concepts_for_Promotion_20181123.txt";
+            string donorZip = @"C:\tmp\DH_XXXX_2017_SNOMEDCT-AU_ReleaseFileBundle_v20181130.zip";
             string promotionModule = "900000000000207008";           
-            string localConceptsFile = @"C:\tmp\sct2_Concept_Snapshot_INT_20180131.txt";
+            string localConceptsFile = @"C:\tmp\sct2_Concept_Snapshot_INT_20180731.txt";
 
             /*
             //need to validate arguments
