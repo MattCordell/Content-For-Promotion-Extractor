@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Content_For_Promotion_Extractor
 {
 
-    public enum RF2File { sct2_Concept_Snapshot, sct2_Description_Snapshot, sct2_Relationship_Snapshot, sct2_StatedRelationship_Snapshot };
+    public enum RF2File { sct2_Concept_Snapshot, sct2_Description_Snapshot, sct2_Relationship_Snapshot, sct2_StatedRelationship_Snapshot, der2_cRefset_LanguageSnapshot };
 
     // Unpacker Extracts the desired file from an RF2 Bundle.
     // Paths to extracted files are returned.
@@ -37,7 +37,6 @@ namespace Content_For_Promotion_Extractor
                         extractedFilePath = tempdirectory + targetToken.ToString() + ".txt";
                         entry.ExtractToFile(extractedFilePath, true);
                         createdFiles.Add(extractedFilePath); //store the path for later cleanup
-
                     }
                 }
             }

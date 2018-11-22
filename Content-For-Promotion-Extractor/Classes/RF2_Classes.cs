@@ -5,6 +5,12 @@ namespace Content_For_Promotion_Extractor
 {
 
     // public strings used for initial simplicity
+    class RF2 {
+        public const string GBrefset = "900000000000508004";
+        public const string USrefset  = "900000000000509007";
+        public const string FSN = "900000000000003001";
+            }
+    
 
     public class Concept
     {
@@ -107,6 +113,49 @@ namespace Content_For_Promotion_Extractor
             return id + t + effectiveTime + t + active + t + moduleId + t + sourceId + t + destinationId + t + relationshipGroup + t + typeId + t + characteristicTypeId + t + modifierId;
 
         }
+    }
+
+    public class Language
+    {
+        public string id { get; set; }
+        public string effectiveTime { get; set; }
+        public string active { get; set; }
+        public string moduleId { get; set; }
+        public string refsetId { get; set; }
+        public string referencedComponentId { get; set; }
+        public string acceptabilityId { get; set; }
+
+        public Language(Language l)
+        {
+            id = l.id;
+            effectiveTime = l.effectiveTime;
+            active = l.active;
+            moduleId = l.moduleId;
+            refsetId = l.refsetId;
+            referencedComponentId = l.referencedComponentId;
+            acceptabilityId = l.acceptabilityId;
+        }
+
+        public Language(string[] s)
+        {
+            if (s.Length != 7) throw new Exception("Not enough fields to initialise Language class");
+
+            id = s[0];
+            effectiveTime = s[1];
+            active = s[2];
+            moduleId = s[3];
+            refsetId = s[4];
+            referencedComponentId = s[5];
+            acceptabilityId = s[6];
+        }
+
+        override public string ToString()
+        {
+            char t = '\t';
+
+            return id + t + effectiveTime + t + active + t + moduleId + t + refsetId + t + referencedComponentId + t + acceptabilityId;
+        }
+
     }
 
 }

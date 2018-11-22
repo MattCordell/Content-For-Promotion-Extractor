@@ -83,5 +83,23 @@ namespace Content_For_Promotion_Extractor
 
             }
         }
+
+        public void CreateRf2File(List<Language> LanguagePreferences)
+        {
+            string path = extractPath + RF2File.der2_cRefset_LanguageSnapshot +"_Extract_en_" + timeStamp + ".txt";
+
+            using (TextWriter w = new StreamWriter(path, false, System.Text.Encoding.UTF8))
+            {
+                //write out the header
+                w.WriteLine("id	effectiveTime	active	moduleId	refsetId	referencedComponentId	acceptabilityId");
+
+                //write out all the entries
+                foreach (var l in LanguagePreferences)
+                {
+                    w.WriteLine(l.ToString());
+                }
+
+            }
+        }
     }
 }

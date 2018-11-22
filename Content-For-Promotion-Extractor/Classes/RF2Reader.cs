@@ -16,7 +16,8 @@ namespace Content_For_Promotion_Extractor
         public string DescriptionsPath;
         public string StatedRelsPath;
         public string InferredRelsPath;
-                
+        public string LanguagePath;
+
 
         public RF2Reader()
         {
@@ -137,6 +138,38 @@ namespace Content_For_Promotion_Extractor
             }
         }
 
+        //Reads all of a Relationships file into List
+        public List<Language> ReadLanguageFile(string fileName, bool onlyactivecomponents = true)
+        {
+            using (StreamReader file = File.OpenText(fileName))
+            {
+                var line = file.ReadLine(); // skip header
+                var preferences = new List<Language>();
+
+                while (!file.EndOfStream)
+                {
+                    line = file.ReadLine();
+                    var fields = line.Split('\t');
+
+                    if (fields[3] != "900000000000207008" && fields[3] != "900000000000012004")
+                    {
+                        if (onlyactivecomponents && fields[2] == "1")
+                        {
+                            Language pref = new Language(fields);
+                            preferences.Add(pref);
+                        }
+                        else if (!onlyactivecomponents)
+                        {
+                            Language pref = new Language(fields);
+                            preferences.Add(pref);
+                        }
+                    }
+
+                }
+                return preferences;
+            }
+        }
+
         // Change the  moduleId to the destination Module
         internal List<Concept> PromoteComponent(List<Concept> extractedComponents, string promotionModule)
         {
@@ -167,6 +200,62 @@ namespace Content_For_Promotion_Extractor
             }
             return extractedComponents;
         }
+
+        internal List<Language> PromoteComponent(List<Language> extractedComponents, string promotionModule)
+        {
+            var preferences = new List<Language>();
+
+            foreach (var component in extractedComponents)
+            {            
+                component.moduleId = promotionModule;
+                component.effectiveTime = DateTime.Now.ToString("yyyyMMdd");
+
+                var US = new Language(component);
+                var GB = new Language(component);
+                
+                //entry for US                
+                US.id = Guid.NewGuid().ToString();
+                US.refsetId = RF2.USrefset;
+                preferences.Add(US);
+
+                //entry for GB
+                GB.id = Guid.NewGuid().ToString();
+                GB.refsetId = RF2.GBrefset;
+                preferences.Add(GB);
+
+            }
+            return preferences;
+        }
+
+        public void AddFSN_Preferences(List<Description> descriptions, List<Language> languagePreferences, string promotionModule)
+        {
+            var FSNs = from d in descriptions
+                       where d.typeId == RF2.FSN
+                       select d.id;
+
+            string[] x = { "id", DateTime.Now.ToString("yyyyMMdd"), "1", promotionModule, "refsetId", "referencedComponentId", "900000000000548007" };
+            var fsnPreference = new Language(x);
+
+            foreach (var FSN in FSNs)
+            {                
+                fsnPreference.referencedComponentId = FSN;
+
+                var US = new Language(fsnPreference);
+                var GB = new Language(fsnPreference);
+
+                //entry for US                
+                US.id = Guid.NewGuid().ToString();
+                US.refsetId = RF2.USrefset;
+                languagePreferences.Add(US);
+
+                //entry for GB
+                GB.id = Guid.NewGuid().ToString();
+                GB.refsetId = RF2.GBrefset;
+                languagePreferences.Add(GB);
+            }
+            
+        }
+
 
         // checks both stated and inferred for dependencies
         public List<string> IdentifyAllDependencies(List<string> extractTargets, List<Concept> localconcepts, List<Relationship> statedRelationships, List<Relationship> inferredRelationships)
@@ -314,7 +403,24 @@ namespace Content_For_Promotion_Extractor
 
             return relationshipsToExtract;
         }
+
+        public List<Language> ExtractLanguagePreferences(List<Description> descriptionExtract)
+        {
+            
+
+            // Read in all the descriptions active/non-core
+            var allPreferences = ReadLanguageFile(LanguagePath);
+
+            List<Language> preferencesToExtract = (from c in allPreferences
+                                                       join target in descriptionExtract
+                                                       on c.referencedComponentId equals target.id
+                                                       select c).ToList();
+
+            return preferencesToExtract;
+        }
+
         
+
     }
 
 }
